@@ -73,10 +73,11 @@ package com.bit101.components
 			
 			if(defaultHandler != null)
 			{
+				//绑定了一个select事件，然后此处添加事件的监听器
 				addEventListener(Event.SELECT, defaultHandler);
 			}
 		}
-			
+		
 		///////////////////////////////////
 		// protected methods
 		///////////////////////////////////

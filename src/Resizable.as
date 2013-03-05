@@ -3,7 +3,7 @@ package
 	import coords.ScreenCoordsBase;
 	import flash.display.Sprite;
 	/**
-	 * ...
+	 * 可绘制的对象基类
 	 * @author maoxiajun
 	 */
 	public class Resizable extends Sprite 

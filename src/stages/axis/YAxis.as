@@ -10,7 +10,7 @@ package stages.axis
 	 * Y轴，纵坐标，Y轴的处理有点特殊，需要由折线绘制过程来确定刻度，主要是考虑到多条折线的可能
 	 * @author maoxiajun
 	 */
-	public class YAxis extends Sprite {
+	public class YAxis extends Resizable {
 		
 		private var _color:uint;
 		private var _count:int;
@@ -58,8 +58,11 @@ package stages.axis
 		
 		/**
 		 * 重绘，绘制纵坐标
+		 * @param	coord
+		 * @param	begin
+		 * @param	range
 		 */
-		public function resize(coord:ScreenCoordsBase):void {
+		override public function resize(coord:ScreenCoordsBase, begin:Number = NaN, range:Number = NaN):void {
 			//var step:Number = coord.axisHeight / (_count - 1);
 			graphics.clear();
 			graphics.beginFill(_color);
@@ -74,20 +77,6 @@ package stages.axis
 			}*/
 		}
 		
-		/**
-		 * gc
-		 */
-		public function destroy():void {
-			graphics.clear();
-			/*for (var i:int = 0; i < _scales.length; i++) {
-				(_scales[i] as YScale).destroy();
-				_scales[i] = null;
-			}
-			_scales = null;*/
-			while (numChildren > 0) {
-				removeChildAt(0);
-			}
-		}
 	}
 
 }

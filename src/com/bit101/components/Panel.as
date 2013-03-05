@@ -42,12 +42,10 @@ package com.bit101.components
 		protected var _showGrid:Boolean = false;
 		protected var _gridColor:uint = 0xd0d0d0;
 		
-		
 		/**
 		 * Container for content added to this panel. This is masked, so best to add children to content, rather than directly to the panel.
 		 */
 		public var content:Sprite;
-		
 		
 		/**
 		 * Constructor
@@ -55,17 +53,14 @@ package com.bit101.components
 		 * @param xpos The x position to place this component.
 		 * @param ypos The y position to place this component.
 		 */
-		public function Panel(parent:DisplayObjectContainer = null, xpos:Number = 0, ypos:Number =  0)
-		{
+		public function Panel(parent:DisplayObjectContainer = null, xpos:Number = 0, ypos:Number = 0) {
 			super(parent, xpos, ypos);
 		}
-		
 		
 		/**
 		 * Initializes the component.
 		 */
-		override protected function init():void
-		{
+		override protected function init():void {
 			super.init();
 			setSize(100, 100);
 		}
@@ -73,8 +68,7 @@ package com.bit101.components
 		/**
 		 * Creates and adds the child display objects of this component.
 		 */
-		override protected function addChildren():void
-		{
+		override protected function addChildren():void {
 			_background = new Sprite();
 			super.addChild(_background);
 			
@@ -89,9 +83,6 @@ package com.bit101.components
 			filters = [getShadow(2, true)];
 		}
 		
-		
-		
-		
 		///////////////////////////////////
 		// public methods
 		///////////////////////////////////
@@ -99,8 +90,7 @@ package com.bit101.components
 		/**
 		 * Overridden to add new child to content.
 		 */
-		public override function addChild(child:DisplayObject):DisplayObject
-		{
+		public override function addChild(child:DisplayObject):DisplayObject {
 			content.addChild(child);
 			return child;
 		}
@@ -108,8 +98,7 @@ package com.bit101.components
 		/**
 		 * Access to super.addChild
 		 */
-		public function addRawChild(child:DisplayObject):DisplayObject
-		{
+		public function addRawChild(child:DisplayObject):DisplayObject {
 			super.addChild(child);
 			return child;
 		}
@@ -117,17 +106,13 @@ package com.bit101.components
 		/**
 		 * Draws the visual ui of the component.
 		 */
-		override public function draw():void
-		{
+		override public function draw():void {
 			super.draw();
 			_background.graphics.clear();
 			_background.graphics.lineStyle(1, 0, 0.1);
-			if(_color == -1)
-			{
+			if(_color == -1) {
 				_background.graphics.beginFill(Style.PANEL);
-			}
-			else
-			{
+			} else {
 				_background.graphics.beginFill(_color);
 			}
 			_background.graphics.drawRect(0, 0, _width, _height);
@@ -141,24 +126,19 @@ package com.bit101.components
 			_mask.graphics.endFill();
 		}
 		
-		protected function drawGrid():void
-		{
+		protected function drawGrid():void {
 			if(!_showGrid) return;
 			
 			_background.graphics.lineStyle(0, _gridColor);
-			for(var i:int = 0; i < _width; i += _gridSize)
-			{
+			for(var i:int = 0; i < _width; i += _gridSize) {
 				_background.graphics.moveTo(i, 0);
 				_background.graphics.lineTo(i, _height);
 			}
-			for(i = 0; i < _height; i += _gridSize)
-			{
+			for(i = 0; i < _height; i += _gridSize) {
 				_background.graphics.moveTo(0, i);
 				_background.graphics.lineTo(_width, i);
 			}
 		}
-		
-		
 		
 		///////////////////////////////////
 		// event handlers
@@ -171,72 +151,59 @@ package com.bit101.components
 		/**
 		 * Gets / sets whether or not this Panel will have an inner shadow.
 		 */
-		public function set shadow(b:Boolean):void
-		{
+		public function set shadow(b:Boolean):void {
 			_shadow = b;
-			if(_shadow)
-			{
+			if(_shadow) {
 				filters = [getShadow(2, true)];
-			}
-			else
-			{
+			} else {
 				filters = [];
 			}
 		}
-		public function get shadow():Boolean
-		{
+		public function get shadow():Boolean {
 			return _shadow;
 		}
 		
 		/**
 		 * Gets / sets the backgrond color of this panel.
 		 */
-		public function set color(c:int):void
-		{
+		public function set color(c:int):void {
 			_color = c;
 			invalidate();
 		}
-		public function get color():int
-		{
+		public function get color():int {
 			return _color;
 		}
 
 		/**
 		 * Sets / gets the size of the grid.
 		 */
-		public function set gridSize(value:int):void
-		{
+		public function set gridSize(value:int):void {
 			_gridSize = value;
 			invalidate();
 		}
-		public function get gridSize():int
-		{
+		public function get gridSize():int {
 			return _gridSize;
 		}
 
 		/**
 		 * Sets / gets whether or not the grid will be shown.
 		 */
-		public function set showGrid(value:Boolean):void
-		{
+		public function set showGrid(value:Boolean):void {
 			_showGrid = value;
 			invalidate();
 		}
-		public function get showGrid():Boolean
-		{
+		public function get showGrid():Boolean {
 			return _showGrid;
 		}
 
 		/**
 		 * Sets / gets the color of the grid lines.
 		 */
-		public function set gridColor(value:uint):void
-		{
+		public function set gridColor(value:uint):void {
 			_gridColor = value;
 			invalidate();
 		}
-		public function get gridColor():uint
-		{
+		public function get gridColor():uint {
 			return _gridColor;
 		}
 	}

@@ -78,6 +78,15 @@ package theme
 		 * 数据超标后的报警色
 		 */
 		public static function get alarmColor():uint { return 0xff0000; }
+		////////////////////////////菜单样式///////////////////////////////////////////////
+		/**
+		 * 菜单背景色
+		 */
+		public static function get menuBgColor():uint { return 0xf9f9f9; }
+		/**
+		 * 菜单边框样式
+		 */
+		public static function get menuBorderCss():String { return "0 0 1px 0 #000000"; }
 	}
 
 }

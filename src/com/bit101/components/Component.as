@@ -41,23 +41,30 @@ package com.bit101.components
 	import flash.events.Event;
 	import flash.filters.DropShadowFilter;
 
+	/**
+	 * Using the Event metadata tag
+	 * You use the [Event] metadata tag to define events dispatched by a component so that the Flex compiler can recognize
+	 * them as MXML tag attributes in an MXML file. You add the [Event] metadata tag in one of the following locations:
+	 * 1.ActionScript components   Above the class definition, but within the package definition, so that the events are bound
+	 *   to the class and not a particular member of the class.
+	 * 2.XML components   In the <mx:Metadata> tag of an MXML file.
+	 */
 	[Event(name="resize", type="flash.events.Event")]
 	[Event(name="draw", type="flash.events.Event")]
-	public class Component extends Sprite
-	{
+	public class Component extends Sprite {
 		// NOTE: Flex 4 introduces DefineFont4, which is used by default and does not work in native text fields.
 		// Use the embedAsCFF="false" param to switch back to DefineFont4. In earlier Flex 4 SDKs this was cff="false".
 		// So if you are using the Flex 3.x sdk compiler, switch the embed statment below to expose the correct version.
 		
 		// Flex 4.7 (labs/beta) sdk:
 		// SWF generated with fontswf utility bundled with the AIR SDK released on labs.adobe.com with Flash Builder 4.7 (including ASC 2.0) 
-		[Embed(source="../../../../assets/pf_ronda_seven.swf", symbol="PF Ronda Seven")]
+		// [Embed(source="../../../../assets/pf_ronda_seven.swf", symbol="PF Ronda Seven")]
 
 		// Flex 4.x sdk:
 		// [Embed(source="/assets/pf_ronda_seven.ttf", embedAsCFF="false", fontName="PF Ronda Seven", mimeType="application/x-font")]
-		// Flex 3.x sdk:
-//		[Embed(source="/assets/pf_ronda_seven.ttf", fontName="PF Ronda Seven", mimeType="application/x-font")]
-		protected var Ronda:Class;
+		// Flex 3.x sdk
+		// [Embed(source="/assets/pf_ronda_seven.ttf", fontName="PF Ronda Seven", mimeType="application/x-font")]
+		//protected var Ronda:Class;
 		
 		protected var _width:Number = 0;
 		protected var _height:Number = 0;
@@ -65,19 +72,17 @@ package com.bit101.components
 		protected var _enabled:Boolean = true;
 		
 		public static const DRAW:String = "draw";
-
+		
 		/**
 		 * Constructor
 		 * @param parent The parent DisplayObjectContainer on which to add this component.
 		 * @param xpos The x position to place this component.
 		 * @param ypos The y position to place this component.
 		 */
-		public function Component(parent:DisplayObjectContainer = null, xpos:Number = 0, ypos:Number =  0)
-		{
+		public function Component(parent:DisplayObjectContainer = null, xpos:Number = 0, ypos:Number = 0) {
 			move(xpos, ypos);
 			init();
-			if(parent != null)
-			{
+			if(parent != null) {
 				parent.addChild(this);
 			}
 		}
@@ -85,8 +90,7 @@ package com.bit101.components
 		/**
 		 * Initilizes the component.
 		 */
-		protected function init():void
-		{
+		protected function init():void {
 			addChildren();
 			invalidate();
 		}
@@ -94,42 +98,33 @@ package com.bit101.components
 		/**
 		 * Overriden in subclasses to create child display objects.
 		 */
-		protected function addChildren():void
-		{
-			
-		}
+		protected function addChildren():void { }
 		
 		/**
 		 * DropShadowFilter factory method, used in many of the components.
 		 * @param dist The distance of the shadow.
 		 * @param knockout Whether or not to create a knocked out shadow.
 		 */
-		protected function getShadow(dist:Number, knockout:Boolean = false):DropShadowFilter
-		{
+		protected function getShadow(dist:Number, knockout:Boolean = false):DropShadowFilter {
 			return new DropShadowFilter(dist, 45, Style.DROPSHADOW, 1, dist, dist, .3, 1, knockout);
 		}
 		
 		/**
 		 * Marks the component to be redrawn on the next frame.
 		 */
-		protected function invalidate():void
-		{
-//			draw();
+		protected function invalidate():void {
+			//draw();
+			//http://www.cnblogs.com/rob0121/articles/1757325.html
 			addEventListener(Event.ENTER_FRAME, onInvalidate);
 		}
 		
-		
-		
-		
-		///////////////////////////////////
-		// public methods
-		///////////////////////////////////
-		
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////// public methods
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/**
 		 * Utility method to set up usual stage align and scaling.
 		 */
-		public static function initStage(stage:Stage):void
-		{
+		public static function initStage(stage:Stage):void {
 			stage.align = StageAlign.TOP_LEFT;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 		}
@@ -139,8 +134,7 @@ package com.bit101.components
 		 * @param xpos the x position to move the component
 		 * @param ypos the y position to move the component
 		 */
-		public function move(xpos:Number, ypos:Number):void
-		{
+		public function move(xpos:Number, ypos:Number):void {
 			x = Math.round(xpos);
 			y = Math.round(ypos);
 		}
@@ -150,8 +144,7 @@ package com.bit101.components
 		 * @param w The width of the component.
 		 * @param h The height of the component.
 		 */
-		public function setSize(w:Number, h:Number):void
-		{
+		public function setSize(w:Number, h:Number):void {
 			_width = w;
 			_height = h;
 			dispatchEvent(new Event(Event.RESIZE));
@@ -161,104 +154,93 @@ package com.bit101.components
 		/**
 		 * Abstract draw function.
 		 */
-		public function draw():void
-		{
+		public function draw():void {
+			//http://blog.csdn.net/dreamming_now/article/details/6197019
+			/**
+			 * 1.定义事件
+			 * 2.添加事件监听器
+			 * 3.发送事件
+			 * 4.监听器监听事件并处理
+			 * 5.结束
+			 */
 			dispatchEvent(new Event(Component.DRAW));
 		}
 		
-		
-		
-		
-		///////////////////////////////////
-		// event handlers
-		///////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////// event handlers
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		/**
 		 * Called one frame after invalidate is called.
 		 */
-		protected function onInvalidate(event:Event):void
-		{
+		protected function onInvalidate(event:Event):void {
 			removeEventListener(Event.ENTER_FRAME, onInvalidate);
 			draw();
 		}
 		
-		
-		
-		
-		///////////////////////////////////
-		// getter/setters
-		///////////////////////////////////
-		
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////// getter/setters
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		/**
 		 * Sets/gets the width of the component.
 		 */
-		override public function set width(w:Number):void
-		{
+		override public function set width(w:Number):void {
 			_width = w;
 			invalidate();
 			dispatchEvent(new Event(Event.RESIZE));
 		}
-		override public function get width():Number
-		{
+		override public function get width():Number {
 			return _width;
 		}
 		
 		/**
 		 * Sets/gets the height of the component.
 		 */
-		override public function set height(h:Number):void
-		{
+		override public function set height(h:Number):void {
 			_height = h;
 			invalidate();
 			dispatchEvent(new Event(Event.RESIZE));
 		}
-		override public function get height():Number
-		{
+		override public function get height():Number {
 			return _height;
 		}
 		
 		/**
 		 * Sets/gets in integer that can identify the component.
 		 */
-		public function set tag(value:int):void
-		{
+		public function set tag(value:int):void {
 			_tag = value;
 		}
-		public function get tag():int
-		{
+		public function get tag():int {
 			return _tag;
 		}
 		
 		/**
 		 * Overrides the setter for x to always place the component on a whole pixel.
 		 */
-		override public function set x(value:Number):void
-		{
+		override public function set x(value:Number):void {
 			super.x = Math.round(value);
 		}
 		
 		/**
 		 * Overrides the setter for y to always place the component on a whole pixel.
 		 */
-		override public function set y(value:Number):void
-		{
+		override public function set y(value:Number):void {
 			super.y = Math.round(value);
 		}
-
+		
 		/**
 		 * Sets/gets whether this component is enabled or not.
 		 */
-		public function set enabled(value:Boolean):void
-		{
+		public function set enabled(value:Boolean):void {
 			_enabled = value;
 			mouseEnabled = mouseChildren = _enabled;
             tabEnabled = value;
 			alpha = _enabled ? 1.0 : 0.5;
 		}
-		public function get enabled():Boolean
-		{
+		public function get enabled():Boolean {
 			return _enabled;
 		}
-
+		
 	}
 }

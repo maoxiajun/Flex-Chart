@@ -33,7 +33,8 @@ package
 						}
 					}]
 				},
-				"tooltip": { }
+				"tooltip": { },
+				"menu": { }
 			};
 			_props = ObjectUtil.merge(json, template);
 			_uris = [];

@@ -21,6 +21,7 @@ package
 	import stages.axis.XAxis;
 	import stages.axis.YAxis;
 	import stages.BackGround;
+	import stages.menu.BaseMenu;
 	import util.ObjectUtil;
 	import util.TraceUtil;
 	
@@ -40,12 +41,13 @@ package
 		private var tipLine:TipLine;//折线图
 		private var clder:Loader;//保存图表加载时的初始参数
 		private var timer:TimeInterval;//定时器
+		private var menu:BaseMenu;//菜单
 		
 		public function Main():void	{
 			addCallBack("load", load);
 			isChartLoaded = false;
 			setMainStage();
-			//loadExternalData("../lib/data.txt", true);
+			loadExternalData("../lib/data.txt", true);
 			//blendMode = BlendMode.LAYER;
 		}
 		
@@ -92,6 +94,7 @@ package
 			background.resize();
 			xAxis.resize(scoord);
 			yAxis.resize(scoord);
+			menu.resize(scoord);
 			sprites.resize(scoord);
 			//tip.resize(scoord);
 			//tipLine.resize(scoord);
@@ -171,11 +174,13 @@ package
 			background = new BackGround(json['background']);
 			xAxis = new XAxis(json['xaxis']);
 			yAxis = new YAxis(json['yaxis']);
+			menu = new BaseMenu(json['menu']);
 			
 			//背景最先添加，addChild有层次，最先添加的对象显示在最下层
 			addChild(background);
 			addChild(xAxis);
 			addChild(yAxis);
+			addChild(menu);
 			/*for each (var scale:Sprite in sprites.cached) {
 				addChild(scale);
 			}*/
@@ -190,9 +195,9 @@ package
 		 */
 		private function load(json:Object/*evt:Event*/):void {
 			try {
-				TraceUtil.aceJson(json);
-				//var loader:URLLoader = URLLoader(evt.target);
-				//var json:Object = JSON.decode(loader.data);
+				//TraceUtil.aceJson(json);
+				var loader:URLLoader = URLLoader(evt.target);
+				var json:Object = JSON.decode(loader.data);
 				clder = new ChartLoader(json);
 				for each(var uri:String in clder.uris) {
 					if (uri) {

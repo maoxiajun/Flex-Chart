@@ -1,23 +1,16 @@
 package chart 
 {
 	import chart.series.BasePoint;
-	import coords.ScreenCoordsBase;
-	import flash.display.Sprite;
 	/**
 	 * 画区显示的底层组成部分
-	 * @author ...
+	 * @author maoxiajun
 	 */
 	public class BaseGraphic extends Resizable {
-		//private var _key:String;//unknown，可能用于标识元素的键
 		//private var _fontSize:int;
 		//private var _axis:int;//unknown
 		
-		//protected var _colors:Array = [];//存放线的颜色
 		protected var _color:uint;
 		protected var _lineWidth:int;
-		//protected var _circleSize:int;
-		
-		//private var _elementVals:Array;//存储对象的值，例如坐标等用于确定显示位置
 		
 		/**
 		 * 返回颜色
@@ -25,23 +18,6 @@ package chart
 		 */
 		/*public function get color():uint {
 			return _color;
-		}*/
-		
-		/**
-		 * 未知用途，待确定
-		 * @return
-		 */
-		/*public function getKeyValues():Object {
-			var tmp:Array = [];
-			
-			if (fontSize > 0 && key != null) {
-				tmp.push( {
-					"text": key,
-					"font-size": fontSize,
-					"color": color
-				});
-			}
-			return tmp;
 		}*/
 		
 		/**

@@ -11,7 +11,7 @@ package stages.axis
 	 * 绘制横坐标轴
 	 * @author maoxiajun
 	 */
-	public class XAxis extends Sprite
+	public class XAxis extends Resizable
 	{
 		private var _count:int;
 		private var _color:uint;
@@ -52,7 +52,7 @@ package stages.axis
 		 * 窗口重绘，绘制横坐标
 		 * @param	coord
 		 */
-		public function resize(coord:ScreenCoordsBase):void {
+		override public function resize(coord:ScreenCoordsBase, begin:Number = NaN, range:Number = NaN):void {
 			graphics.clear();
 			graphics.beginFill(_color);
 			//宽度+2为了坐标刻度
@@ -66,17 +66,6 @@ package stages.axis
 			graphics.endFill();
 		}
 		
-		/**
-		 * gc
-		 */
-		public function destroy():void {
-			graphics.clear();
-			while (numChildren > 0) {
-				removeChildAt(0);
-			}
-			//_scale.destroy();
-			//_scale = null;
-		}
 	}
 
 }
