@@ -1,47 +1,21 @@
 package chart 
 {
+	import chart.series.BaseLine;
 	import chart.series.BasePoint;
 	import coords.ScreenCoordsBase;
 	import flash.display.Sprite;
+	import flash.geom.Rectangle;
 	/**
 	 * 画区显示对象集合
-	 * @author ...
+	 * TODO: 增加缓存对象
+	 * @author maoxiajun
 	 */
-	public class SpriteCollection
-	{
-		//private var objCached:Array;//
-		private var objDynamic:Array;//
+	public class SpriteCollection {
+		//动态组件容器
+		private var dynamicItems:Array;
 		
-		/**
-		 * 构造器
-		 */
-		public function SpriteCollection() {
-			//objCached = [];
-			objDynamic = [];
-		}
-		
-		/*public function get cached():Array {
-			return objCached;
-		}*/
-		
-		public function get dynamics():Array {
-			return objDynamic;
-		}
-		
-		/**
-		 * 增加
-		 * @param	objectSet
-		 */
-		/*public function addCached(objcache:Resizable):void {
-			objCached.push(objcache);
-		}*/
-		
-		/**
-		 * 增加
-		 * @param	objectSet
-		 */
-		public function addDynamic(objdyna:BaseGraphic):void {
-			objDynamic.push(objdyna);
+		public function SpriteCollection(items:Array = null) {
+			dynamicItems = items != null ? items : [];
 		}
 		
 		/**
@@ -51,8 +25,8 @@ package chart
 		 */
 		public function get minX():Number {
 			var min:Number = Number.MAX_VALUE;
-			for each(var obj:BaseGraphic in objDynamic) {
-				min = Math.min(min, obj.minX);
+			for each(var item:BaseGraphic in dynamicItems) {
+				min = Math.min(min, item.minX);
 			}
 			return min;
 		}
@@ -63,8 +37,8 @@ package chart
 		 */
 		public function get maxX():Number {
 			var max:Number = Number.MIN_VALUE;
-			for each(var obj:BaseGraphic in objDynamic) {
-				max = Math.max(max, obj.maxX);
+			for each(var item:BaseGraphic in dynamicItems) {
+				max = Math.max(max, item.maxX);
 			}
 			return max;
 		}
@@ -75,9 +49,24 @@ package chart
 		 * @param	y
 		 * @return
 		 */
-		public function closest(x:Number, y:Number):Object {
+		public function closest(x:Number, y:Number):BasePoint {
 			//简化处理，返回第一个图表对象中的最近点
-			return BaseGraphic(objDynamic[0]).closest(x, y);
+			return (dynamicItems[0] as BaseGraphic).closest(x, y);
+		}
+		
+		/**
+		 * 查找包含在矩形框内部的对象索引
+		 * @param	rect
+		 * @return
+		 */
+		public function contains(rect:Rectangle):Array {
+			var selectedItems:Array = [];
+			for each(var item:BaseGraphic in dynamicItems) {
+				if (item is BaseLine) {
+					selectedItems.push((item as BaseLine).findPointsByRect(rect));
+				}
+			}
+			return selectedItems;
 		}
 		
 		/**
@@ -85,31 +74,35 @@ package chart
 		 * @param	coord
 		 */
 		public function resize(coord:ScreenCoordsBase):void {
-			/*for each(var cachedObj:Resizable in objCached) {
-				cachedObj.resize(coord);
+			/*for each(var item:Resizable in cachedItems) {
+				item.resize(coord);
 			}*/
-			for each(var dynamicObj:BaseGraphic in objDynamic) {
-				dynamicObj.resize(coord);
+			for each(var item:BaseGraphic in dynamicItems) {
+				item.resize(coord);
 			}
 		}
 		
 		/**
-		 * gc，此集合中存储需要动态绘制的图形对象
+		 * 动态组件
 		 */
-		public function destroy():void {
-			//destroyCache();
-			destroyDynamic();
+		public function get dynamics():Array {
+			return dynamicItems;
 		}
 		
-		/*public function destroyCache():void {
-			for each(var obj:Resizable in objCached) {
-				obj.destroy();
-			}
-		}*/
+		/**
+		 * 添加动态组件至容器
+		 * @param	itemectSet
+		 */
+		public function addDynamic(item:BaseGraphic):void {
+			dynamicItems.push(item);
+		}
 		
-		public function destroyDynamic():void {
-			for each(var obj:BaseGraphic in objDynamic) {
-				obj.destroy();
+		/**
+		 * 销毁动态组件
+		 */
+		public function destroy():void {
+			for each(var item:BaseGraphic in dynamicItems) {
+				item.destroy();
 			}
 		}
 	}

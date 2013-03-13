@@ -6,11 +6,8 @@ package chart
 	 * @author maoxiajun
 	 */
 	public class BaseGraphic extends Resizable {
-		//private var _fontSize:int;
-		//private var _axis:int;//unknown
-		
 		protected var _color:uint;
-		protected var _lineWidth:int;
+		protected var _lineStroke:int;
 		
 		/**
 		 * 返回颜色
@@ -72,25 +69,18 @@ package chart
 		}
 		
 		/**
-		 * 接口函数，待子类实现
-		 * @param	coords
-		 */
-		//override public function resize(coord:ScreenCoordsBase):void { }
-		
-		/**
 		 * 检索最近点
 		 * @param	x
 		 * @param	y
 		 * @return
 		 */
-		public function closest(x:Number, y:Number):Object {
+		public function closest(x:Number, y:Number):BasePoint {
 			var shortest:Number = Number.MAX_VALUE;
 			var closest:BasePoint, dx:Number;
 			
 			for (var i:int = 0; i < numChildren; i++ ) {
 				if (getChildAt(i) is BasePoint) {
 					var pt:BasePoint = getChildAt(i) as BasePoint;
-					//element.toolTipShow = false;
 					
 					dx = Math.abs(x - pt.x);
 					if (dx < shortest) {
@@ -104,7 +94,7 @@ package chart
 			if (closest) {
 				dy = Math.abs(y - closest.y);
 			}
-			return { pt:closest, dx:shortest, dy:dy };
+			return closest;//{ pt:closest, dx:shortest, dy:dy };
 		}
 		
 		/**

@@ -22,22 +22,22 @@ package stages.axis
 		public function XScale(json:Object) 
 		{
 			var style:Object = {
-				count: ThemeConst.xAxisCount,
+				//count: ThemeConst.xAxisCount,
 				color: ThemeCss.axisColor,
 				data: undefined,
 				rotation: 'vertical'
 			};
 			var props:Object = ObjectUtil.merge(json, style);
-			_count = props.count;
 			_color = ParseUtil.toColor(props.color);
 			_data = props.data;
+			_count = _data.length;
 			_rotation = props.rotation;
 		}
 		
 		/**
 		 * 窗口重绘
 		 */
-		override public function resize(coord:ScreenCoordsBase, begin:Number=0, range:Number=0):void {
+		override public function resize(coord:ScreenCoordsBase, count:int = 0, begin:Number=0, range:Number=0):void {
 			graphics.clear();//不直接调用destroy方法，防止更改destroy方法导致的问题
 			while (numChildren > 0) {
 				removeChildAt(0);
@@ -45,8 +45,10 @@ package stages.axis
 			var txtFmt:TextFormat = new TextFormat();
 			txtFmt.color = _color;
 			txtFmt.size = ThemeCss.scaleSize;
-			//graphics.beginFill(_color);
+			graphics.beginFill(_color);
 			for (var i:int = 0; i < _count; i++ ) {
+				graphics.drawRect(coord.getXFromPos(i, _count), 
+					coord.heightYTop + coord.axisHeight + ThemeConst.scaleLength, ThemeConst.axisWidth, ThemeConst.scaleLength);
 				var txt:BaseLabel = LabelFactory.createLabel('xaxis');
 				txt.text = _data[i];
 				txt.setTextFormat(txtFmt);//设置文本内容之后设置TextFormat，否则失效
@@ -55,18 +57,9 @@ package stages.axis
 				txt.rotate(_rotation);
 				addChild(txt);
 			}
-			//graphics.endFill();
+			graphics.endFill();
 		}
 		
-		/**
-		 * gc
-		 */
-		override public function destroy():void {
-			graphics.clear();
-			while (numChildren > 0) {
-				removeChildAt(0);
-			}
-		}
 	}
 
 }

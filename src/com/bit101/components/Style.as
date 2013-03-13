@@ -46,9 +46,10 @@ package com.bit101.components
 		public static var LIST_SELECTED:uint = 0xCCCCCC;
 		public static var LIST_ROLLOVER:uint = 0XDDDDDD;
 		
-		public static var embedFonts:Boolean = true;
-		public static var fontName:String = "PF Ronda Seven";
-		public static var fontSize:Number = 8;
+		public static var ALIGN_CENTER:Boolean = true;
+		//public static var embedFonts:Boolean = true;
+		//public static var fontName:String = "PF Ronda Seven";
+		public static var fontSize:Number = 12;
 		
 		public static const DARK:String = "dark";
 		public static const LIGHT:String = "light";
@@ -56,10 +57,8 @@ package com.bit101.components
 		/**
 		 * Applies a preset style as a list of color values. Should be called before creating any components.
 		 */
-		public static function setStyle(style:String):void
-		{
-			switch(style)
-			{
+		public static function setStyle(style:String):void {
+			switch(style) {
 				case DARK:
 					Style.BACKGROUND = 0x444444;
 					Style.BUTTON_FACE = 0x666666;

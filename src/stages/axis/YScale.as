@@ -121,7 +121,7 @@ package stages.axis
 		 * 窗口重绘
 		 * @param	coord
 		 */
-		override public function resize(coord:ScreenCoordsBase, begin:Number=NaN, range:Number=NaN):void {
+		override public function resize(coord:ScreenCoordsBase, count:int = 0, begin:Number=NaN, range:Number=NaN):void {
 			var step:Number = coord.axisHeight / _count;
 			/*var offset:int = 0;
 			if (interval != Math.ceil(coord.axisHeight / _count)) {
@@ -137,6 +137,8 @@ package stages.axis
 			graphics.beginFill(_color);
 			for (var i:int = 0; i < _count; i++ ) {
 				//graphics.drawRect(coord.widthXLeft - 2, coord.heightYTop + i * step, 2, 2);
+				graphics.drawRect(coord.widthXLeft - ThemeConst.scaleLength, 
+					coord.getYFromPos(i, _count), ThemeConst.scaleLength, ThemeConst.axisWidth);
 				var txt:TextField = new TextField();
 				txt.text = _positions[i];
 				txt.setTextFormat(txtFmt);//设置文本内容之后设置TextFormat，否则失效

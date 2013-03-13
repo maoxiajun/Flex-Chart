@@ -12,8 +12,7 @@ package coords.base
 		private var _count:int;
 		private var _offset:Boolean;
 		
-		public function RangeX(left:int=0, right:int=0, count:int=0, offset:Boolean=false) 
-		{
+		public function RangeX(left:int=0, right:int=0, count:int=0, offset:Boolean=false) {
 			_left = left;
 			_right = right;
 			_count = count;
@@ -62,9 +61,9 @@ package coords.base
 		/**
 		 * 数据点显示个数，用作默认X轴刻度个数
 		 */
-		public function get count():int {
+		/*public function get count():int {
 			return _count < 1 ? ThemeConst.xAxisCount : _count;
-		}
+		}*/
 	}
 
 }

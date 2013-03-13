@@ -1,7 +1,6 @@
 package stages.axis 
 {
 	import coords.ScreenCoordsBase;
-	import flash.display.Sprite;
 	import theme.ThemeConst;
 	import theme.ThemeCss;
 	import util.ObjectUtil;
@@ -13,10 +12,10 @@ package stages.axis
 	public class YAxis extends Resizable {
 		
 		private var _color:uint;
-		private var _count:int;
+		//private var _count:int;
 		//private var _scales:Array;
 		private var _width:int;
-		private var _length:int;
+		//private var _length:int;
 		
 		public function YAxis(json:Object) {
 			var style:Object = {
@@ -24,24 +23,24 @@ package stages.axis
 				//bottomLimit : Number.NaN,
 				//steps : Number.NaN,
 				color : ThemeCss.axisColor,
-				count : ThemeConst.yAxisCount,
-				width : ThemeConst.axisWidth,
-				length : ThemeConst.scaleLength
+				//count : ThemeConst.yAxisCount,
+				width : ThemeConst.axisWidth//,
+				//length : ThemeConst.scaleLength
 			}
-			var props:Object = ObjectUtil.merge(json ? json : {}, style);
+			var props:Object = ObjectUtil.merge(json, style);
 			_color = ParseUtil.toColor(props.color);
-			_count = props.count;
+			//_count = props.count;
 			_width = props.width;
-			_length = props.length;
+			//_length = props.length;
 			//buildYScale(props);//创建Y轴刻度
 		}
 		
 		/**
 		 * 返回Y轴刻度数量
 		 */
-		public function get count():int {
+		/*public function get count():int {
 			return _count;// < 1 ? ThemeConst.yAxisCount : _count;
-		}
+		}*/
 		
 		/**
 		 * 绘制Y轴坐标刻度
@@ -62,15 +61,15 @@ package stages.axis
 		 * @param	begin
 		 * @param	range
 		 */
-		override public function resize(coord:ScreenCoordsBase, begin:Number = NaN, range:Number = NaN):void {
+		override public function resize(coord:ScreenCoordsBase, count:int = 0, begin:Number = NaN, range:Number = NaN):void {
 			//var step:Number = coord.axisHeight / (_count - 1);
 			graphics.clear();
 			graphics.beginFill(_color);
 			graphics.drawRect(coord.widthXLeft, coord.heightYTop, _width, coord.axisHeight);
-			for (var i:int = 0; i < _count; i++ ) {
+			/*for (var i:int = 0; i < _count; i++ ) {
 				graphics.drawRect(coord.widthXLeft - _length, coord.getYFromPos(i, _count), _length, _width);
 				//trace(coord.axisHeight + "," + i*interval + "," + i%2 * offset);
-			}
+			}*/
 			graphics.endFill();
 			/*for (var i:int = 0; i < _scales.length; i++) {
 				(_scales[i] as YScale).resize(coord);

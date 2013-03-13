@@ -86,7 +86,20 @@ package theme
 		/**
 		 * 菜单边框样式
 		 */
-		public static function get menuBorderCss():String { return "0 0 1px 0 #000000"; }
+		public static function get menuBorderCss():String { return "1px 0 1px 0 #000000"; }
+		/**
+		 * 菜单高度
+		 */
+		public static function get menuHeight():int { return 25; }
+		////////////////////////////框选框样式///////////////////////////////////////////////
+		/**
+		 * 框选框颜色
+		 */
+		public static function get dragRectColor():uint { return 0x04A3ED; }
+		/**
+		 * 边框宽度
+		 */
+		public static function get dragRectBorderStroke():int { return 3; }
 	}
 
 }

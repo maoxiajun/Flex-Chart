@@ -6,8 +6,7 @@ package chart.series.point
 	 * 折线中的数据点集合
 	 * @author maoxiajun
 	 */
-	public class PointCollection 
-	{
+	public class PointCollection {
 		private var _points:Array;
 		
 		public function PointCollection() {
@@ -40,10 +39,10 @@ package chart.series.point
 		 * 窗口重绘
 		 * @param	coord
 		 */
-		public function resize(coord:ScreenCoordsBase, begin:Number, range:Number):void {
+		public function resize(coord:ScreenCoordsBase, count:int, begin:Number, range:Number):void {
 			for (var i:int = 0; i < _points.length; i++ ) {
 				var pt:BasePoint = _points[i] as BasePoint;
-				pt.resize(coord, begin, range);
+				pt.resize(coord, count, begin, range);
 			}
 			/*for each(var pt:BaseTip in _points) {
 				pt.resize(coord);

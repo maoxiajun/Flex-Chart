@@ -11,7 +11,7 @@ package
 		/**
 		 * 定位并重绘，用于根据数值确定坐标的情形
 		 */
-		public function resize(coord:ScreenCoordsBase, begin:Number=NaN, range:Number=NaN):void {}
+		public function resize(coord:ScreenCoordsBase, count:int=0, begin:Number=NaN, range:Number=NaN):void {}
 		
 		/**
 		 * gc

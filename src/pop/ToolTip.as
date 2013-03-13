@@ -88,7 +88,7 @@ package pop
 		 * 窗口重绘
 		 * @param	coord
 		 */
-		override public function resize(coord:ScreenCoordsBase, begin:Number = NaN, range:Number = NaN):void {
+		override public function resize(coord:ScreenCoordsBase, count:int = 0, begin:Number = NaN, range:Number = NaN):void {
 			var tx:Number, ty:Number;
 			tx = _attachedPt.x + 5;
 			ty = _attachedPt.y + 2;

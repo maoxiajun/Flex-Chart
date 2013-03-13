@@ -32,8 +32,7 @@ package com.bit101.components
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 
-	public class PushButton extends Component
-	{
+	public class PushButton extends Component {
 		protected var _back:Sprite;
 		protected var _face:Sprite;
 		protected var _label:Label;
@@ -51,11 +50,10 @@ package com.bit101.components
 		 * @param label The string to use for the initial label of this component.
  		 * @param defaultHandler The event handling function to handle the default event for this component (click in this case).
 		 */
-		public function PushButton(parent:DisplayObjectContainer = null, xpos:Number = 0, ypos:Number =  0, label:String = "", defaultHandler:Function = null)
-		{
+		public function PushButton(parent:DisplayObjectContainer = null, 
+			xpos:Number = 0, ypos:Number =  0, label:String = "", defaultHandler:Function = null) {
 			super(parent, xpos, ypos);
-			if(defaultHandler != null)
-			{
+			if(defaultHandler != null) {
 				addEventListener(MouseEvent.CLICK, defaultHandler);
 			}
 			this.label = label;
@@ -64,8 +62,7 @@ package com.bit101.components
 		/**
 		 * Initializes the component.
 		 */
-		override protected function init():void
-		{
+		override protected function init():void {
 			super.init();
 			buttonMode = true;
 			useHandCursor = true;
@@ -75,8 +72,7 @@ package com.bit101.components
 		/**
 		 * Creates and adds the child display objects of this component.
 		 */
-		override protected function addChildren():void
-		{
+		override protected function addChildren():void {
 			_back = new Sprite();
 			_back.filters = [getShadow(2, true)];
 			_back.mouseEnabled = false;
@@ -99,21 +95,16 @@ package com.bit101.components
 		/**
 		 * Draws the face of the button, color based on state.
 		 */
-		protected function drawFace():void
-		{
+		protected function drawFace():void {
 			_face.graphics.clear();
-			if(_down)
-			{
+			if(_down) {
 				_face.graphics.beginFill(Style.BUTTON_DOWN);
-			}
-			else
-			{
+			} else {
 				_face.graphics.beginFill(Style.BUTTON_FACE);
 			}
 			_face.graphics.drawRect(0, 0, _width - 2, _height - 2);
 			_face.graphics.endFill();
 		}
-		
 		
 		///////////////////////////////////
 		// public methods
@@ -122,8 +113,7 @@ package com.bit101.components
 		/**
 		 * Draws the visual ui of the component.
 		 */
-		override public function draw():void
-		{
+		override public function draw():void {
 			super.draw();
 			_back.graphics.clear();
 			_back.graphics.beginFill(Style.BACKGROUND);
@@ -135,22 +125,15 @@ package com.bit101.components
 			_label.text = _labelText;
 			_label.autoSize = true;
 			_label.draw();
-			if(_label.width > _width - 4)
-			{
+			if(_label.width > _width - 4) {
 				_label.autoSize = false;
 				_label.width = _width - 4;
-			}
-			else
-			{
+			} else {
 				_label.autoSize = true;
 			}
 			_label.draw();
 			_label.move(_width / 2 - _label.width / 2, _height / 2 - _label.height / 2);
-			
 		}
-		
-		
-		
 		
 		///////////////////////////////////
 		// event handlers
@@ -160,8 +143,7 @@ package com.bit101.components
 		 * Internal mouseOver handler.
 		 * @param event The MouseEvent passed by the system.
 		 */
-		protected function onMouseOver(event:MouseEvent):void
-		{
+		protected function onMouseOver(event:MouseEvent):void {
 			_over = true;
 			addEventListener(MouseEvent.ROLL_OUT, onMouseOut);
 		}
@@ -170,11 +152,9 @@ package com.bit101.components
 		 * Internal mouseOut handler.
 		 * @param event The MouseEvent passed by the system.
 		 */
-		protected function onMouseOut(event:MouseEvent):void
-		{
+		protected function onMouseOut(event:MouseEvent):void {
 			_over = false;
-			if(!_down)
-			{
+			if(!_down) {
 				_face.filters = [getShadow(1)];
 			}
 			removeEventListener(MouseEvent.ROLL_OUT, onMouseOut);
@@ -184,8 +164,7 @@ package com.bit101.components
 		 * Internal mouseOut handler.
 		 * @param event The MouseEvent passed by the system.
 		 */
-		protected function onMouseGoDown(event:MouseEvent):void
-		{
+		protected function onMouseGoDown(event:MouseEvent):void {
 			_down = true;
 			drawFace();
 			_face.filters = [getShadow(1, true)];
@@ -196,10 +175,8 @@ package com.bit101.components
 		 * Internal mouseUp handler.
 		 * @param event The MouseEvent passed by the system.
 		 */
-		protected function onMouseGoUp(event:MouseEvent):void
-		{
-			if(_toggle  && _over)
-			{
+		protected function onMouseGoUp(event:MouseEvent):void {
+			if(_toggle  && _over) {
 				_selected = !_selected;
 			}
 			_down = _selected;
@@ -208,9 +185,6 @@ package com.bit101.components
 			stage.removeEventListener(MouseEvent.MOUSE_UP, onMouseGoUp);
 		}
 		
-		
-		
-		
 		///////////////////////////////////
 		// getter/setters
 		///////////////////////////////////
@@ -218,20 +192,16 @@ package com.bit101.components
 		/**
 		 * Sets / gets the label text shown on this Pushbutton.
 		 */
-		public function set label(str:String):void
-		{
+		public function set label(str:String):void {
 			_labelText = str;
 			draw();
 		}
-		public function get label():String
-		{
+		public function get label():String {
 			return _labelText;
 		}
 		
-		public function set selected(value:Boolean):void
-		{
-			if(!_toggle)
-			{
+		public function set selected(value:Boolean):void {
+			if(!_toggle) {
 				value = false;
 			}
 			
@@ -240,20 +210,16 @@ package com.bit101.components
 			_face.filters = [getShadow(1, _selected)];
 			drawFace();
 		}
-		public function get selected():Boolean
-		{
+		public function get selected():Boolean {
 			return _selected;
 		}
 		
-		public function set toggle(value:Boolean):void
-		{
+		public function set toggle(value:Boolean):void {
 			_toggle = value;
 		}
-		public function get toggle():Boolean
-		{
+		public function get toggle():Boolean {
 			return _toggle;
 		}
-		
 		
 	}
 }

@@ -56,14 +56,10 @@ package com.bit101.components
 		 * @param ypos The y position to place this component.
 		 * @param items An array of items to display in the list. Either strings or objects with label property.
 		 */
-		public function List(parent:DisplayObjectContainer=null, xpos:Number=0, ypos:Number=0, items:Array=null)
-		{
-			if(items != null)
-			{
+		public function List(parent:DisplayObjectContainer=null, xpos:Number=0, ypos:Number=0, items:Array=null) {
+			if(items != null) {
 				_items = items;
-			}
-			else
-			{
+			} else {
 				_items = new Array();
 			}
 			super(parent, xpos, ypos);
@@ -72,8 +68,7 @@ package com.bit101.components
 		/**
 		 * Initilizes the component.
 		 */
-		protected override function init() : void
-		{
+		protected override function init():void {
 			super.init();
 			setSize(100, 100);
 			addEventListener(MouseEvent.MOUSE_WHEEL, onMouseWheel);
@@ -85,8 +80,7 @@ package com.bit101.components
 		/**
 		 * Creates and adds the child display objects of this component.
 		 */
-		protected override function addChildren() : void
-		{
+		protected override function addChildren():void {
 			super.addChildren();
 			_panel = new Panel(this, 0, 0);
 			_panel.color = _defaultColor;
@@ -99,11 +93,9 @@ package com.bit101.components
 		/**
 		 * Creates all the list items based on data.
 		 */
-		protected function makeListItems():void
-		{
+		protected function makeListItems():void {
 			var item:ListItem;
-			while(_itemHolder.numChildren > 0)
-			{
+			while(_itemHolder.numChildren > 0) {
 				item = ListItem(_itemHolder.getChildAt(0));
 				item.removeEventListener(MouseEvent.CLICK, onSelect);
 				_itemHolder.removeChildAt(0);
@@ -112,49 +104,38 @@ package com.bit101.components
             var numItems:int = Math.ceil(_height / _listItemHeight);
 			numItems = Math.min(numItems, _items.length);
             numItems = Math.max(numItems, 1);
-			for(var i:int = 0; i < numItems; i++)
-			{
-
+			for(var i:int = 0; i < numItems; i++) {
 				item = new _listItemClass(_itemHolder, 0, i * _listItemHeight);
 				item.setSize(width, _listItemHeight);
 				item.defaultColor = _defaultColor;
-
+				
 				item.selectedColor = _selectedColor;
 				item.rolloverColor = _rolloverColor;
 				item.addEventListener(MouseEvent.CLICK, onSelect);
 			}
 		}
 
-        protected function fillItems():void
-        {
+        protected function fillItems():void {
             var offset:int = _scrollbar.value;
             var numItems:int = Math.ceil(_height / _listItemHeight);
 			numItems = Math.min(numItems, _items.length);
-            for(var i:int = 0; i < numItems; i++)
-            {
+            for(var i:int = 0; i < numItems; i++) {
                 var item:ListItem = _itemHolder.getChildAt(i) as ListItem;
-				if(offset + i < _items.length)
-				{
+				if(offset + i < _items.length) {
 	                item.data = _items[offset + i];
-				}
-				else
-				{
+				} else {
 					item.data = "";
 				}
-				if(_alternateRows)
-				{
+				
+				if(_alternateRows) {
 					item.defaultColor = ((offset + i) % 2 == 0) ? _defaultColor : _alternateColor;
-				}
-				else
-				{
+				} else {
 					item.defaultColor = _defaultColor;
 				}
-                if(offset + i == _selectedIndex)
-                {
+				
+                if(offset + i == _selectedIndex) {
                     item.selected = true;
-                }
-                else
-                {
+                } else {
                     item.selected = false;
                 }
             }
@@ -170,7 +151,7 @@ package com.bit101.components
 			{
 				if(_scrollbar.value > _selectedIndex)
 				{
-//                    _scrollbar.value = _selectedIndex;
+					//_scrollbar.value = _selectedIndex;
 				}
 				else if(_scrollbar.value + numItems < _selectedIndex)
 				{
@@ -184,8 +165,6 @@ package com.bit101.components
             fillItems();
 		}
 		
-		
-		
 		///////////////////////////////////
 		// public methods
 		///////////////////////////////////
@@ -198,8 +177,7 @@ package com.bit101.components
 			super.draw();
 			
 			_selectedIndex = Math.min(_selectedIndex, _items.length - 1);
-
-
+			
 			// panel
 			_panel.setSize(_width, _height);
 			_panel.color = _defaultColor;
@@ -226,7 +204,7 @@ package com.bit101.components
 			_items.push(item);
 			invalidate();
 			makeListItems();
-      fillItems();
+			fillItems();
 		}
 		
 		/**
@@ -240,8 +218,8 @@ package com.bit101.components
 			index = Math.min(_items.length, index);
 			_items.splice(index, 0, item);
 			invalidate();
-      makeListItems();
-      fillItems();
+			makeListItems();
+			fillItems();
 		}
 		
 		/**
@@ -263,8 +241,8 @@ package com.bit101.components
 			if(index < 0 || index >= _items.length) return;
 			_items.splice(index, 1);
 			invalidate();
-      makeListItems();
-      fillItems();
+			makeListItems();
+			fillItems();
 		}
 		
 		/**
@@ -274,13 +252,9 @@ package com.bit101.components
 		{
 			_items.length = 0;
 			invalidate();
-      makeListItems();
-      fillItems();
+			makeListItems();
+			fillItems();
 		}
-		
-		
-		
-		
 		
 		///////////////////////////////////
 		// event handlers
@@ -338,7 +312,7 @@ package com.bit101.components
 			if(value >= 0 && value < _items.length)
 			{
 				_selectedIndex = value;
-//				_scrollbar.value = _selectedIndex;
+				//_scrollbar.value = _selectedIndex;
 			}
 			else
 			{
@@ -358,12 +332,11 @@ package com.bit101.components
 		public function set selectedItem(item:Object):void
 		{
 			var index:int = _items.indexOf(item);
-//			if(index != -1)
-//			{
+			//if(index != -1){
 				selectedIndex = index;
 				invalidate();
 				dispatchEvent(new Event(Event.SELECT));
-//			}
+			//}
 		}
 		public function get selectedItem():Object
 		{

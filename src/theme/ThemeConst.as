@@ -41,6 +41,16 @@ package theme
 		 * 提示线的虚线片段长度
 		 */
 		public static function get limitLineDashOff():int { return 10; }
+		
+		/**
+		 * 刷新菜单中combobox的默认值
+		 */
+		public static function get timeIntervals():Array { return [ -1, 5, 10, 15]; }
+		
+		/**
+		 * 默认采用的Y轴
+		 */
+		public static function get attachAxis():String { return "left"; }
 	}
 
 }

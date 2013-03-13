@@ -1,9 +1,10 @@
 package util
 {
 	import flash.net.LocalConnection;
+	import flash.utils.ByteArray;
 	/**
 	 * 对象工具类，用于合并对象
-	 * @author ...
+	 * @author maoxiajun
 	 */
 	public final class ObjectUtil 
 	{
@@ -39,6 +40,19 @@ package util
 				to[prop] = from[prop];
 			}
 			return to;
+		}
+		
+		/**
+		 * 深度复制对象，开辟新的内存空间
+		 * @param	to
+		 * @param	from
+		 * @return
+		 */
+		public static function copy(from:Object):Object {
+			var copier:ByteArray = new ByteArray();
+			copier.writeObject(from);
+			copier.position = 0;
+			return copier.readObject(); 
 		}
 		
 		/**

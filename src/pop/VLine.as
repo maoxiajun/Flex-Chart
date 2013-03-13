@@ -76,7 +76,7 @@ package pop
 		 * @param	coord
 		 * @param	limit
 		 */
-		override public function resize(coord:ScreenCoordsBase, begin:Number = NaN, range:Number = NaN):void {
+		override public function resize(coord:ScreenCoordsBase, count:int = 0, begin:Number = NaN, range:Number = NaN):void {
 			if (isNaN(_limit)) {
 				graphics.clear();
 				return;

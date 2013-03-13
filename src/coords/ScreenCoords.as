@@ -16,8 +16,8 @@ package coords
 		
 		//private var _itemWidth:Number;
 		//private var _itemHeight:Number;
-		private var _defaultXCount:int;
-		private var _defaultYCount:int;
+		//private var _defaultXCount:int;
+		//private var _defaultYCount:int;
 		//private var offsetX:Boolean;
 		//private var offsetY:Boolean;
 		
@@ -34,8 +34,8 @@ package coords
 			
 			//_itemWidth = axisWidth / (rangeX.count - 1);
 			//_itemHeight = axisHeight / (rangeY.count - 1);
-			_defaultXCount = rangeX.count;
-			_defaultYCount = rangeY.count;
+			//_defaultXCount = rangeX.count;
+			//_defaultYCount = rangeY.count;
 		}
 		
 		/**
@@ -51,6 +51,20 @@ package coords
 		 */
 		override public function get axisHeight():int {
 			return _bottom - _top - _heightYBottom - _heightYTop;
+		}
+		
+		/**
+		 * 画区宽度
+		 */
+		override public function get stageWidth():int {
+			return _right - _left;
+		}
+		
+		/**
+		 * 画区高度
+		 */
+		override public function get stageHeight():int {
+			return _bottom - _top;
 		}
 		
 		/**
@@ -106,7 +120,7 @@ package coords
 		override public function getYFromPos( index:int, count:int=0 ):Number {
 			//return _top + _heightYTop + axisHeight - index * _itemHeight;
 			if (count == 0) {
-				count = _defaultYCount;
+				return NaN;//count = _defaultYCount;
 			}
 			var itemHeight:Number = axisHeight / (count - 1);
 			return _top + _heightYTop + axisHeight - index * itemHeight;
@@ -121,7 +135,7 @@ package coords
 		override public function getXFromPos( index:int, count:int=0 ):Number {
 			//return _left + _widthXLeft + index * _itemWidth;
 			if (count == 0) {
-				count = _defaultXCount;
+				return NaN;//count = _defaultXCount;
 			}
 			var itemWidth:Number = axisWidth / (count - 1);
 			return _left + _widthXLeft + index * itemWidth;

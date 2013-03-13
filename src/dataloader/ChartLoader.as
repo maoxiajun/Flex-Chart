@@ -1,12 +1,12 @@
 package dataloader 
 {
+	import flash.geom.Rectangle;
 	import util.ObjectUtil;
 	/**
 	 * 外部URL数据加载器，此部分与后台通信业务耦合度较高，非可重用类
 	 * @author maoxiajun
 	 */
-	public class ChartLoader extends Loader
-	{
+	public class ChartLoader extends Loader {
 		private var _uricount:int;
 		
 		public function ChartLoader(json:Object) {
@@ -33,6 +33,12 @@ package dataloader
 		 * @return
 		 */
 		override public function process(json:Object):Boolean {
+			//直接加载数据，则不作处理
+			if (uris.length < 1) {
+				//每次返回最终数据集时保存原始数据备份用于折线图的复位
+				_origin = ObjectUtil.copy(_props);
+				return true;
+			}
 			for each(var cdata:Object in _props['chart']['chartData']) {
 				var row:Object = (json['rows'] as Array)[0]['cell'];
 				if (row[cdata['display']['y']] && cdata['data'] == undefined) {
@@ -50,6 +56,8 @@ package dataloader
 			}
 			if (_uricount == uris.length) {
 				_uricount = 0;//还原以待下一次加载
+				//深度复制对象，以便折线复位
+				_origin = ObjectUtil.copy(_props);
 				return true;
 			}
 			return false;

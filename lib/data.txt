@@ -1,27 +1,27 @@
 {
   "background":{
     "color":"#ffffff",
-	"padding":"10px 10px 50px 40px"
+	"padding":"30px 10px 50px 40px"
   },
   "xaxis":{
-	  "count":20
 	  //"color":"#E58602"
   },
   "yaxis":{
-	  "count":20
+	  //"color":"#E58602"
   },
   "chart":{
 	  "type":"line",
+	  //"reload":true,
 	  "chartData": [{
-		  "url":"http://localhost:8081/sanmen/data/dataHVIoniChamberAction!findPage.action?subSiteId=1&page=1&rp=20",
+		  /*"url":"",
 		  "display":{
-			  "x":"createTimeStr",
-			  "y":"hpic"
-		  },
-		  //"data": [0.11,0.12,0.121,0.215,0.13,0.23,0.1,0.09,0.102,0.15,0.16,0.195,
-			//	   0.145,0.135,0.155,0.132,0.142,0.156,0.168,0.121],
+			  "x":"",
+			  "y":""
+		  },*/
+		  "data": [0.11,0.12,0.121,0.215,0.13,0.23,0.1,0.09,0.102,0.15,0.16,0.195,
+				   0.145,0.135,0.155,0.132,0.142,0.156,0.168,0.121],
 		  //"color":"#4d24df",
-		  //"lineWidth":1,
+		  //"lineStroke":1,
 		  "yscale": {
 			  "topLimit":0.2,
 			  "bottomLimit":0.1,
@@ -30,9 +30,8 @@
 			  "limitLine": true
 		  },
 		  "xscale": {
-			  //"data": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
-			  "rotation":"vertical",
-			  "count": 20
+			  "data": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
+			  "rotation":"vertical"
 		  }
 	  }]
   },
@@ -43,6 +42,12 @@
 	  "alpha":0.9
   },
   "menu": {
-	  
+	  "combo":{
+		  "interval": [-1, 5, 10, 15],
+		  "type": "second"
+	  }
+  },
+  "title": {
+	  "text": "测试用例"
   }
 }

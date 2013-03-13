@@ -5,8 +5,7 @@ package coords
 	 * 屏幕坐标
 	 * @author maoxiajun
 	 */
-	public class ScreenCoordsBase 
-	{
+	public class ScreenCoordsBase {
 		protected var _top:int;//上
 		protected var _left:int;//左
 		protected var _right:int;//右
@@ -14,8 +13,7 @@ package coords
 		protected var _width:int;//宽
 		protected var _height:int;//高
 		
-		public function ScreenCoordsBase(top:int, left:int, right:int, bottom:int) 
-		{
+		public function ScreenCoordsBase(top:int, left:int, right:int, bottom:int) {
 			_top = top;
 			_left = left;
 			_right = right;
@@ -51,6 +49,20 @@ package coords
 		 * 纵坐标轴高
 		 */
 		public function get axisHeight():int {
+			return -1;
+		}
+		
+		/**
+		 * 画区宽度
+		 */
+		public function get stageWidth():int {
+			return -1;
+		}
+		
+		/**
+		 * 画区高度
+		 */
+		public function get stageHeight():int {
 			return -1;
 		}
 		
