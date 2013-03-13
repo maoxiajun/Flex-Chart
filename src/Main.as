@@ -50,7 +50,7 @@ package {
 			addCallBack("load", load);
 			isChartLoaded = false;
 			initStage();
-			loadExternalData("../lib/data.txt");
+			//loadExternalData("../lib/data.txt");
 			//blendMode = BlendMode.LAYER;
 		}
 ////////////////////////////////////////////////////////////////////////////////////////////////////
