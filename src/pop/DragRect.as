@@ -5,6 +5,7 @@ package pop
 	import theme.ThemeCss;
 	import util.ObjectUtil;
 	import util.ParseUtil;
+	import util.TraceUtil;
 	/**
 	 * 框选时出现的框，附加一些框选事件
 	 * @author maoxiajun
@@ -15,8 +16,8 @@ package pop
 		private var _stroke:int;
 		private var _originX:Number = 0;//起始点
 		private var _originY:Number = 0;
-		private var _destinationX:Number = 0;//目标点
-		private var _destinationY:Number = 0;
+		private var _destinationX:Number;//目标点
+		private var _destinationY:Number;
 		
 		public function DragRect(json:Object) {
 			var style:Object = {
@@ -50,7 +51,14 @@ package pop
 		 * @return
 		 */
 		public function selectedRect():Rectangle {
-			return new Rectangle(_originX, _originY, _destinationX - _originX, _destinationY - _originY);
+			//TraceUtil.aces(_originX,_originY,_destinationX,_destinationY);
+			if (isNaN(_destinationX) || isNaN(_destinationY)) {
+				return null;
+			}
+			return new Rectangle(
+				_originX < _destinationX ? _originX : _destinationX, 
+				_originY < _destinationY ? _originY : _destinationY, 
+				Math.abs(_destinationX - _originX), Math.abs(_destinationY - _originY) );
 		}
 		
 		/**
@@ -89,8 +97,8 @@ package pop
 			super.destroy();
 			originX = 0;
 			originY = 0;
-			destinationX = 0;
-			destinationY = 0;
+			destinationX = NaN;
+			destinationY = NaN;
 		}
 	}
 
