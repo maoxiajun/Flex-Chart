@@ -50,7 +50,6 @@ package {
 			addCallBack("load", load);
 			isChartLoaded = false;
 			initStage();
-			//自动加载测试数据，正式发布时注释此行
 			loadExternalData("../lib/data.txt");
 			//blendMode = BlendMode.LAYER;
 		}
@@ -124,7 +123,6 @@ package {
 		 * @param	rect
 		 */
 		private function resolveSelected(rect:Rectangle):void {
-			if (rect == null) { return; }
 			var selected:Array = [];
 			if (sprites) {
 				selected = sprites.contains(rect);
@@ -271,7 +269,6 @@ package {
 		private function reload(json:Object = null):void {
 			try {
 				if (!chartLoader) { return; }
-				//TraceUtil.aceJson("reload");
 				if (chartLoader.uris.length == 0) {
 					chartLoader.reload(json);
 					rebuildChart(chartLoader.props);
